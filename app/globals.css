@@ -4,13 +4,16 @@
 
 @layer base {
   :root {
-    --bg: 210 25% 15%;
-    --accent: 140 60% 40%;
-    --primary: 210 80% 45%;
-    --surface: 210 25% 20%;
-    --text-primary: 0 0% 95%;
-    --text-secondary: 0 0% 75%;
-    --border: 210 25% 25%;
+    --bg: 210 20% 12%;
+    --accent: 160 70% 45%;
+    --primary: 210 90% 50%;
+    --surface: 210 20% 18%;
+    --text-primary: 0 0% 98%;
+    --text-secondary: 0 0% 80%;
+    --border: 210 20% 28%;
+    --error: 0 70% 60%;
+    --warning: 40 90% 60%;
+    --success: 145 70% 45%;
   }
   
   body {
@@ -21,55 +24,166 @@
   * {
     @apply border-border;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight text-text-primary;
+  }
+  
+  h1 {
+    @apply text-3xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+  
+  h3 {
+    @apply text-xl;
+  }
+  
+  h4 {
+    @apply text-lg;
+  }
+  
+  p {
+    @apply text-base text-text-secondary;
+  }
+  
+  a {
+    @apply text-primary hover:text-primary/80 transition-colors;
+  }
+  
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+  }
 }
 
 @layer components {
+  /* Button styles */
   .btn-primary {
-    @apply bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-all duration-150 font-medium;
+    @apply bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-all duration-200 font-medium shadow-sm hover:shadow-glow-primary focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.98];
   }
   
   .btn-secondary {
-    @apply bg-surface hover:bg-surface/80 text-text-primary px-4 py-2 rounded-md transition-all duration-150 font-medium border border-border;
+    @apply bg-surface hover:bg-surface/80 text-text-primary px-4 py-2 rounded-md transition-all duration-200 font-medium border border-border hover:border-border/80 focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.98];
   }
   
   .btn-accent {
-    @apply bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-md transition-all duration-150 font-medium shadow-glow;
+    @apply bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-md transition-all duration-200 font-medium shadow-sm hover:shadow-glow focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.98];
   }
   
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+  
+  .btn-lg {
+    @apply px-5 py-2.5 text-lg;
+  }
+  
+  .btn-icon {
+    @apply inline-flex items-center justify-center;
+  }
+  
+  /* Card styles */
   .card {
-    @apply bg-surface border border-border rounded-lg p-6 shadow-card;
+    @apply bg-surface border border-border rounded-lg p-6 shadow-card hover:shadow-lg transition-shadow duration-200;
   }
   
+  /* Form elements */
   .input-field {
-    @apply bg-surface border border-border rounded-md px-3 py-2 text-text-primary placeholder:text-text-secondary focus:border-accent focus:outline-none transition-colors duration-150;
+    @apply bg-surface border border-border rounded-md px-3 py-2 text-text-primary placeholder:text-text-secondary/70 focus:border-accent focus:ring-1 focus:ring-accent/30 focus:outline-none transition-all duration-200 w-full;
   }
-
+  
+  .input-field-sm {
+    @apply px-2 py-1.5 text-sm;
+  }
+  
+  .input-field-lg {
+    @apply px-4 py-3 text-lg;
+  }
+  
+  .input-label {
+    @apply block text-sm font-medium text-text-secondary mb-1;
+  }
+  
+  /* Sidebar styles */
   .sidebar-item {
-    @apply flex items-center gap-3 px-3 py-2 rounded-md text-text-secondary hover:text-text-primary hover:bg-surface/50 transition-all duration-150 cursor-pointer;
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-surface/50 transition-all duration-150 cursor-pointer font-medium;
   }
 
   .sidebar-item.active {
-    @apply text-text-primary bg-surface;
+    @apply text-text-primary bg-surface border-l-2 border-l-accent pl-[10px];
   }
-
+  
+  /* Task card styles */
   .task-card {
-    @apply bg-surface border border-border rounded-md p-4 hover:border-accent/50 transition-all duration-150;
+    @apply bg-surface border border-border rounded-md p-4 hover:border-accent/50 transition-all duration-200 hover:shadow-md;
   }
 
   .task-card.completed {
-    @apply opacity-75 border-accent/30;
+    @apply opacity-80 border-accent/30 bg-surface/80;
+  }
+  
+  /* Priority badges */
+  .priority-badge {
+    @apply text-xs px-2 py-0.5 rounded-full font-medium;
+  }
+  
+  .priority-high {
+    @apply bg-error/20 text-error;
+  }
+  
+  .priority-medium {
+    @apply bg-warning/20 text-warning;
+  }
+  
+  .priority-low {
+    @apply bg-success/20 text-success;
+  }
+  
+  /* Status badges */
+  .status-badge {
+    @apply text-xs px-2 py-0.5 rounded-full font-medium;
+  }
+  
+  .status-completed {
+    @apply bg-accent/20 text-accent;
+  }
+  
+  .status-active {
+    @apply bg-primary/20 text-primary;
+  }
+  
+  .status-pending {
+    @apply bg-surface text-text-secondary;
   }
 
+  /* Workflow visualization */
   .workflow-step {
-    @apply flex items-center gap-3 p-3 rounded-md border border-border bg-surface/50;
+    @apply flex items-center gap-3 p-3 rounded-md border border-border bg-surface/50 transition-all duration-200;
   }
 
   .workflow-step.active {
-    @apply border-accent bg-accent/10;
+    @apply border-accent bg-accent/10 shadow-sm;
   }
 
   .workflow-step.completed {
     @apply border-accent/50 bg-accent/5;
+  }
+  
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin text-accent;
+  }
+  
+  .loading-pulse {
+    @apply animate-pulse bg-surface/50;
+  }
+  
+  /* Tooltips */
+  .tooltip {
+    @apply absolute z-10 px-2 py-1 text-xs bg-surface border border-border rounded shadow-md;
   }
 }
 
@@ -86,4 +200,9 @@
 @keyframes slideDown {
   from { transform: translateY(-10px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
